@@ -1,21 +1,23 @@
-hystrix.command.fallbackcmd.execution.isolation.thread.timeoutInMilliseconds: 2000
 spring:
   application:
-    name: api-gateway
-
+    name: restaurant-gateway-service
+  cloud:
+    gateway:
+    discovery:
+      locator:
+        enabled: true
+    routes:
+      - id: customers
+          uri: lb://customer-service
+          predicates:
+            - Path=/customer/**
+      - id: restaurants
+          uri: lb://restaurant-service
+          predicates:
+            - Path=/restaurant/**
 server:
-  port: 8088
-
+  port: ${app_port}
 eureka:
   client:
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka
-    register-with-eureka: false
-  instance:
-    preferIpAddress: true
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: hystrix.stream
+    serviceURL:
+      defaultZone: http://localhost:8900/eureka
