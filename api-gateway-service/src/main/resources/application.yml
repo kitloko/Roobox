@@ -1,23 +1,21 @@
 spring:
   application:
-    name: restaurant-gateway-service
+    name: gateway
   cloud:
     gateway:
-    discovery:
-      locator:
-        enabled: true
-    routes:
-      - id: customers
-          uri: lb://customer-service
+      routes:
+        - id: chat-bot-service
+          uri: lb://chat-bot-service
           predicates:
-            - Path=/customer/**
-      - id: restaurants
-          uri: lb://restaurant-service
-          predicates:
-            - Path=/restaurant/**
+            - Path=/chatbot/**
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
 server:
-  port: ${app_port}
+  port: 9000
 eureka:
   client:
-    serviceURL:
-      defaultZone: http://localhost:8900/eureka
+    registerWithEureka: true
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVER_ADDRESS}

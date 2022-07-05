@@ -1,0 +1,6 @@
+INSERT INTO Chatbot_Yampi_Message_Models(message_models_id,yampi_id,text,sequence,create_at,update_at)
+VALUES (1,1,'Olá, *<nome_cliente>* \uD83D\uDE04\nSou a assistente virtual da loja *<nome_loja>*.\uD83E\uDD16\nEm que posso ajudar?\uD83E\uDD14\n\n*Informe apenas o número da opção escolhida*\n\n;*1* - Rastrear Pedido \uD83D\uDE9A);*2* - Segunda Via do Boleto \uD83D\uDCE5\n*3* - Quero trocar a cor ou tamanho\n*4* - Prazo de entrega\n*5* - Cancelamento do pedido\n*6* - Produto com defeito\n*7* - Atraso do pedido\n*8* - Dúvidas sobre produto',0,'2022-07-04 20:55:00.304000','2022-07-04 20:55:00.304000');
+INSERT INTO Chatbot_Yampi_Message_Models(message_models_id,yampi_id,text,sequence,create_at,update_at)
+VALUES (2,1,'Me informe o *CPF* utilizado no momento da compra para encontrarmos seu pedido.\n\n\uD83D\uDC49\uD83C\uDFFB  Me envie apenas os 11 dígitos do seu CPF *(ex.: 01234567890)*.',1,'2022-07-04 20:55:00.304000','2022-07-04 20:55:00.304000');
+INSERT INTO Chatbot_Yampi_Message_Models(message_models_id,yampi_id,text,sequence,create_at,update_at)
+VALUES (3,1,'*Não encontramos o CPF em nossa loja*.\n\n\uD83D\uDC49\uD83C\uDFFB  Por favor, verifique se o CPF está digitado corretamente ou é o CPF utilizado na compra do pedido.',2,'2022-07-04 20:55:00.304000','2022-07-04 20:55:00.304000')
