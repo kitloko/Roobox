@@ -28,7 +28,7 @@ public class ChatbotYampiMessageModelsEntity {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "yampi_id")
+    @JoinColumn(name = "yampi_id", nullable = true)
     private YampiEntity yampi;
 
     @Column(columnDefinition="text")
@@ -37,10 +37,10 @@ public class ChatbotYampiMessageModelsEntity {
     private int sequence;
 
     @CreatedDate
-    @Column(name = "create_at", nullable = false, updatable = false)
+    @Column(name = "create_at")
     private Instant createAt;
 
-    @Column(name = "update_at", nullable = false)
+    @Column(name = "update_at")
     @LastModifiedDate
     private Instant updateAt;
 }

@@ -43,10 +43,10 @@ public class WhatsappMessage {
     private String event;
 
     @CreatedDate
-    @Column(name = "create_at", nullable = false, updatable = false)
+    @Column(name = "create_at")
     private Instant createAt;
 
-    @Column(name = "update_at", nullable = false)
+    @Column(name = "update_at")
     @LastModifiedDate
     private Instant updateAt;
 }

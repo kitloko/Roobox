@@ -37,6 +37,7 @@ public class Whatsapp {
 
     private String integration;
 
+    @Column(columnDefinition="text")
     private String qrCode;
 
     private String name;
@@ -44,10 +45,10 @@ public class Whatsapp {
     private String description;
 
     @CreatedDate
-    @Column(name = "create_at", nullable = false, updatable = false)
+    @Column(name = "create_at")
     private Instant createAt;
 
-    @Column(name = "update_at", nullable = false)
+    @Column(name = "update_at")
     @LastModifiedDate
     private Instant updateAt;
 }

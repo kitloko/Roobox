@@ -24,6 +24,9 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     open-in-view: false
     generate-ddl: true
+  sql:
+    init:
+      mode: embedded # always to initial insert db
 # Logger configuration
 logging:
   pattern:

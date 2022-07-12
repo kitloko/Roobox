@@ -82,7 +82,7 @@ public class ChatbotService {
             switch (controlChatBot.getSequence()) {
                 case 1:
                     chatbotYampiMessageModels = Optional.ofNullable(getMessageModel(yampi, controlChatBot.getSequence())).orElse(getMessageModel(2, controlChatBot.getSequence()));
-                    whatsappService.sendMessageYampi(message, replaceText(chatbotYampiMessageModels.getText(), message, yampi), whatsapp);
+//                    whatsappService.sendMessageYampi(message, replaceText(chatbotYampiMessageModels.getText(), message, yampi), whatsapp);
                     chatbotMessageRepository.save(montaChatbotMessage(yampi, message, controlChatBot.getSequence()));
                     controlChatBot.setSequence(2);
                     controlChatBot.setResponse("Opção escolhida");
@@ -133,7 +133,7 @@ public class ChatbotService {
             chatbotYampiControllerRepository.save(controlChatBot);
 
             chatbotYampiMessageModels = Optional.ofNullable(getMessageModel(yampi, 0)).orElse(getMessageModel(1, 0));
-            whatsappService.sendMessageYampi(message, replaceText(chatbotYampiMessageModels.getText(), message, yampi), whatsapp);
+//            whatsappService.sendMessageYampi(message, replaceText(chatbotYampiMessageModels.getText(), message, yampi), whatsapp);
         }
 
     }

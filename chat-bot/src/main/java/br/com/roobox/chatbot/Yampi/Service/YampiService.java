@@ -20,13 +20,13 @@ public class YampiService {
     public void apiYampi(String opcao, MessageEntity mensagem, YampiEntity yampi) {
 
         CustomerEntity customer = consultaCPF(mensagem, yampi);
-        if(customer.getCpf().isEmpty())
+        if (customer.getCpf() == null)
             System.out.println();
-            else {
-//        switch (opcao) {
-//            case "1":
-//                return rastrearPedido(mensagem.getContent(), yampi);
-//            break;
+        else {
+            switch (opcao) {
+                case "1":
+                    return rastrearPedido(customer, yampi);
+                break;
 //            case "2":
 //                return pedido(mensagem.getContent(), yampi);
 //            break;
@@ -36,83 +36,82 @@ public class YampiService {
 //            case "4":
 //                return pedido(mensagem.getContent(), yampi);
 //            break;
-//        }
+            }
         }
     }
 
-//    private StringBuilder rastrearPedido(String CPF, YampiEntity yampi) {
-//        StringBuilder mensagem = new StringBuilder();
-//        JSONObject listaPedido = consultaPedidos(CPF, yampiModel);
-//
-//        //CONSULTA O RASTREIO DO PEDIDO
-////        JSONObject rastreio = rastrearYampi(listaPedido);
-//
-//        RastreioModel rastreioModel = new RastreioModel();
-//
-//        for (int i = 0; i < listaPedido.getJSONObject("pedido").length(); i++) {
-//            StringBuilder mensagemPedido = new StringBuilder();
-//
-//            try {
-//                rastreioModel.setRastreio(listaPedido.getJSONObject("pedido").getJSONObject("0").getString("track_code"));
-//                rastreioModel = new ConsultaRastreios().retornaRastreioProxyapp(rastreioModel);
-//                if (rastreioModel.getEvento().equals("Sem informação de rastreio")) {
-//
-//                } else {
-//                    if (rastreioModel.getEvento().equals("Objeto entregue ao destinatário")) {
-//                        mensagemPedido.append("Seu pedido foi *entregue ao destinatário* ✅\n");
-//                        mensagemPedido.append("\uD83D\uDCC5 No dia *" + rastreioModel.getData() + " " + rastreioModel.getHora() + " em " + rastreioModel.getCidade() + "*\n");
-//                        mensagemPedido.append("\uD83D\uDCE6 O código de rastreio é: *" + rastreioModel.getRastreio() + "*\n\n");
-//                    } else {
-//                        if (new FlowRastreamento().verificaEstado(rastreioModel.getCidade())) {
-//                            mensagemPedido.append("\uD83D\uDE9A Sua encomenda está em *" + rastreioModel.getCidade() + "*\n");
-//                        } else {
-//                            mensagemPedido.append("\uD83D\uDE9A Sua encomenda está em transito\n");
-//                        }
-//                        mensagemPedido.append("\uD83D\uDCC5 Ultima atualização *" + rastreioModel.getData() + " " + rastreioModel.getHora() + "*\n");
-//                        mensagemPedido.append(rastreioModel.getEvento() + " \n");
-//                        mensagemPedido.append("\uD83D\uDCE6 O código de rastreio é: *" + rastreioModel.getRastreio() + "*\n\n");
-//                        mensagemPedido.append("⏰ " + previsaoEntrega(listaPedido, i) + "\n\n");
-//                    }
-//                }
-//
-//
-////            rastreioCorreios(listaPedido.getJSONObject("pedido").getJSONObject(String.valueOf(i)).getString("track_code"), mensagemPedido);
-//
-//                if (mensagemPedido.toString().isEmpty())
-//                    rastreioCainiao(listaPedido.getJSONObject("pedido").getJSONObject(String.valueOf(i)).getString("track_code"), mensagemPedido);
-//
-//                if (mensagemPedido.toString().isEmpty()) {
-//                    JSONObject statusPedido = listaPedido.getJSONObject("pedido").getJSONObject(String.valueOf(i)).getJSONObject("status").getJSONObject("data");
-//
-//                    mensagemPedido.append("Seu pedido está: *" + statusPedido.getString("name") + "* \uD83D\uDE9A \n");
-//                    mensagemPedido.append(statusPedido.getString("description") + "\n");
-//                    mensagemPedido.append("\uD83D\uDCE6 O código de rastreio é: *" + listaPedido.getJSONObject("pedido").getJSONObject(String.valueOf(i)).getString("track_code") + "*\n");
-////                    mensagemPedido.append("⏰ " + previsaoEntrega(listaPedido, i) + "\n\n");
-//                }
-//
-//                mensagemPedido.append("Os itens do pedido pedido " + listaPedido.getJSONObject("pedido").getJSONObject(String.valueOf(i)).get("number").toString() + " são \n");
-//                JSONObject produtosLista = listaPedido.getJSONObject("produto").getJSONObject(String.valueOf(listaPedido.getJSONObject("pedido").getJSONObject(String.valueOf(i)).get("number").toString()));
-//                for (int j = 0; j < produtosLista.length(); j++) {
-//                    mensagemPedido.append("\uD83D\uDD39️*" + produtosLista.getJSONObject(String.valueOf(j)).getInt("quantity") + " " + produtosLista.getJSONObject(String.valueOf(j)).getJSONObject("sku").getJSONObject("data").getString("title") + "*\n");
-//                }
-//                mensagemPedido.append("\n\n");
-//            } catch (Exception e) {
-//                mensagemPedido.append("*Verifiquei que está tudo certo com seu pedido!* \uD83D\uDE42 \n");
-//                mensagemPedido.append("Ele está na *fase final* de processamento! \uD83D\uDCE6 \n");
-//                mensagemPedido.append("Assim que o centro logístico liberar seu *código de rastreio*, iremos te informar *automaticamente por e-mail*, junto à todas as atualizações da entrega...\uD83D\uDE9A \n\n");
-//
-//                mensagemPedido.append("Os motivos dessa ocorrência pode ser:\n");
-//                mensagemPedido.append("\uD83D\uDD39 Pode tratar de um pedido feito recentemente.\n");
-//                mensagemPedido.append("\uD83D\uDD39 Atraso na postagem do pedido.\n");
-//                mensagemPedido.append("\uD83D\uDD39 Acumulo de pedidos para ser processados.\n\n");
-//
-//                mensagemPedido.append("*Mas não se preocupe logo será postado*.\n\n");
-//            }
-//            mensagem.append(mensagemPedido);
-//        }
-//
-//        return mensagem;
-//    }
+    private void rastrearPedido(CustomerEntity customer, YampiEntity yampi) {
+        StringBuilder mensagem = new StringBuilder();
+        JSONObject listaPedido = consultaPedidos(CPF, yampiModel);
+
+        //CONSULTA O RASTREIO DO PEDIDO
+//        JSONObject rastreio = rastrearYampi(listaPedido);
+
+        RastreioModel rastreioModel = new RastreioModel();
+
+        for (int i = 0; i < listaPedido.getJSONObject("pedido").length(); i++) {
+            StringBuilder mensagemPedido = new StringBuilder();
+
+            try {
+                rastreioModel.setRastreio(listaPedido.getJSONObject("pedido").getJSONObject("0").getString("track_code"));
+                rastreioModel = new ConsultaRastreios().retornaRastreioProxyapp(rastreioModel);
+                if (rastreioModel.getEvento().equals("Sem informação de rastreio")) {
+
+                } else {
+                    if (rastreioModel.getEvento().equals("Objeto entregue ao destinatário")) {
+                        mensagemPedido.append("Seu pedido foi *entregue ao destinatário* ✅\n");
+                        mensagemPedido.append("\uD83D\uDCC5 No dia *" + rastreioModel.getData() + " " + rastreioModel.getHora() + " em " + rastreioModel.getCidade() + "*\n");
+                        mensagemPedido.append("\uD83D\uDCE6 O código de rastreio é: *" + rastreioModel.getRastreio() + "*\n\n");
+                    } else {
+                        if (new FlowRastreamento().verificaEstado(rastreioModel.getCidade())) {
+                            mensagemPedido.append("\uD83D\uDE9A Sua encomenda está em *" + rastreioModel.getCidade() + "*\n");
+                        } else {
+                            mensagemPedido.append("\uD83D\uDE9A Sua encomenda está em transito\n");
+                        }
+                        mensagemPedido.append("\uD83D\uDCC5 Ultima atualização *" + rastreioModel.getData() + " " + rastreioModel.getHora() + "*\n");
+                        mensagemPedido.append(rastreioModel.getEvento() + " \n");
+                        mensagemPedido.append("\uD83D\uDCE6 O código de rastreio é: *" + rastreioModel.getRastreio() + "*\n\n");
+                        mensagemPedido.append("⏰ " + previsaoEntrega(listaPedido, i) + "\n\n");
+                    }
+                }
+
+
+//            rastreioCorreios(listaPedido.getJSONObject("pedido").getJSONObject(String.valueOf(i)).getString("track_code"), mensagemPedido);
+
+                if (mensagemPedido.toString().isEmpty())
+                    rastreioCainiao(listaPedido.getJSONObject("pedido").getJSONObject(String.valueOf(i)).getString("track_code"), mensagemPedido);
+
+                if (mensagemPedido.toString().isEmpty()) {
+                    JSONObject statusPedido = listaPedido.getJSONObject("pedido").getJSONObject(String.valueOf(i)).getJSONObject("status").getJSONObject("data");
+
+                    mensagemPedido.append("Seu pedido está: *" + statusPedido.getString("name") + "* \uD83D\uDE9A \n");
+                    mensagemPedido.append(statusPedido.getString("description") + "\n");
+                    mensagemPedido.append("\uD83D\uDCE6 O código de rastreio é: *" + listaPedido.getJSONObject("pedido").getJSONObject(String.valueOf(i)).getString("track_code") + "*\n");
+//                    mensagemPedido.append("⏰ " + previsaoEntrega(listaPedido, i) + "\n\n");
+                }
+
+                mensagemPedido.append("Os itens do pedido pedido " + listaPedido.getJSONObject("pedido").getJSONObject(String.valueOf(i)).get("number").toString() + " são \n");
+                JSONObject produtosLista = listaPedido.getJSONObject("produto").getJSONObject(String.valueOf(listaPedido.getJSONObject("pedido").getJSONObject(String.valueOf(i)).get("number").toString()));
+                for (int j = 0; j < produtosLista.length(); j++) {
+                    mensagemPedido.append("\uD83D\uDD39️*" + produtosLista.getJSONObject(String.valueOf(j)).getInt("quantity") + " " + produtosLista.getJSONObject(String.valueOf(j)).getJSONObject("sku").getJSONObject("data").getString("title") + "*\n");
+                }
+                mensagemPedido.append("\n\n");
+            } catch (Exception e) {
+                mensagemPedido.append("*Verifiquei que está tudo certo com seu pedido!* \uD83D\uDE42 \n");
+                mensagemPedido.append("Ele está na *fase final* de processamento! \uD83D\uDCE6 \n");
+                mensagemPedido.append("Assim que o centro logístico liberar seu *código de rastreio*, iremos te informar *automaticamente por e-mail*, junto à todas as atualizações da entrega...\uD83D\uDE9A \n\n");
+
+                mensagemPedido.append("Os motivos dessa ocorrência pode ser:\n");
+                mensagemPedido.append("\uD83D\uDD39 Pode tratar de um pedido feito recentemente.\n");
+                mensagemPedido.append("\uD83D\uDD39 Atraso na postagem do pedido.\n");
+                mensagemPedido.append("\uD83D\uDD39 Acumulo de pedidos para ser processados.\n\n");
+
+                mensagemPedido.append("*Mas não se preocupe logo será postado*.\n\n");
+            }
+            mensagem.append(mensagemPedido);
+        }
+
+    }
 
 //    private StringBuilder pedido(String CPF, YampiModel yampiModel) {
 //        StringBuilder mensagem = new StringBuilder();
@@ -209,12 +208,13 @@ public class YampiService {
 //        return mensagemPedido;
 //    }
 
-    private CustomerEntity consultaCPF(MessageEntity message, YampiEntity yampi){
-        String cpf = message.getContent().replace(".", "").replace("-", "").replace(" ", "");;
+    private CustomerEntity consultaCPF(MessageEntity message, YampiEntity yampi) {
+        String cpf = message.getContent().replace(".", "").replace("-", "").replace(" ", "");
+        ;
         CustomerEntity customer = new CustomerEntity();
         customer = Optional.ofNullable(customerRepository.findByCpf(cpf)).orElse(customer);
         CustomerService customerService = new CustomerService();
-        JSONObject clienteYampi = customerService.findClientesYampi(cpf,yampi);
+        JSONObject clienteYampi = customerService.findClientesYampi(cpf, yampi);
         if (clienteYampi.isEmpty())
             return customer;
         customer.setCpf(cpf);
