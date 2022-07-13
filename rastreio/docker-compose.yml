@@ -1,0 +1,12 @@
+version: "3"
+services:
+  postgres_db:
+    image: postgres
+    container_name: roobox_chatbot_qa
+    restart: always
+    ports:
+      - 5433:5433
+    environment:
+      - POSTGRES_USER=roobox
+      - POSTGRES_PASSWORD=roobox
+      - POSTGRES_DB=roobox_rastreio_qa
