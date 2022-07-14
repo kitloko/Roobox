@@ -1,5 +1,6 @@
 package br.com.roobox.rastreio.Entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,6 +11,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.List;
 
 @Data
 @Builder
@@ -26,15 +28,14 @@ public class RastreioEntity {
     public String id;
 
     @Column(name = "track_code")
+    @JsonProperty("codObjeto")
     public String trackCode;
 
     public int priority;
-    public String city;
-    public String uf;
-    public String date;
-    public String hour;
-    public String description;
-    public String event;
+
+    @OneToMany
+    @JsonProperty("eventos")
+    public List<Eventos> event;
 
     @CreatedDate
     @Column(name = "create_at")

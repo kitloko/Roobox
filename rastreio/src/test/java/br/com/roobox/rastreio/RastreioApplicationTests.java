@@ -1,5 +1,6 @@
 package br.com.roobox.rastreio;
 
+import br.com.roobox.rastreio.Entity.RastreioEntity;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
@@ -18,7 +19,6 @@ class RastreioApplicationTests {
 				.build()
 				.get()
 				.uri("https://proxyapp.correios.com.br/v1/sro-rastro/{rastreio}", "LB338557975HK")
-				.accept(MediaType.APPLICATION_XML)
 				.retrieve()
 				.bodyToMono(String.class);
 
@@ -26,7 +26,9 @@ class RastreioApplicationTests {
 
 		JSONObject jsonObject = new JSONObject(response.block());
 
-		JSONArray objetos = new JSONArray(jsonObject.getJSONArray("objeto").toString());
+		JSONArray objetos = new JSONArray(jsonObject.getJSONArray("objetos").toString());
+
+		RastreioEntity rastreio = new RastreioEntity();
 	}
 
 }
