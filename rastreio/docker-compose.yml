@@ -11,13 +11,13 @@ services:
       - POSTGRES_PASSWORD=roobox
       - POSTGRES_DB=roobox_rastreio_qa
 
-  postgres_db_chatbot:
-    image: postgres
-    container_name: roobox_chatbot_qa
-    restart: always
-    ports:
-      - "5432:5432"
-    environment:
-      - POSTGRES_USER=roobox
-      - POSTGRES_PASSWORD=roobox
-      - POSTGRES_DB=roobox_chatbot_qa
+#  postgres_db_chatbot:
+#    image: postgres
+#    container_name: roobox_chatbot_qa
+#    restart: always
+#    ports:
+#      - "5432:5432"
+#    environment:
+#      - POSTGRES_USER=roobox
+#      - POSTGRES_PASSWORD=roobox
+#      - POSTGRES_DB=roobox_chatbot_qa

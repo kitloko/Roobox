@@ -152,23 +152,23 @@ public class Rastreio {
         JSONArray objetos = new JSONArray(jsonObject.getJSONArray("objeto").toString());
 
         List<RastreioEntity> rastreioList = new ArrayList<>();
-        for (int i = 0; i < objetos.length(); i++) {
-            RastreioEntity rastreiosModel = new RastreioEntity();
-            rastreiosModel.setTrackCode(objetos.getJSONObject(i).getString("numero"));
-            try {
-                rastreiosModel.setDescription(objetos.getJSONObject(i).getJSONArray("evento").getJSONObject(0).getString("descricao"));
-                rastreiosModel.setDate(objetos.getJSONObject(i).getJSONArray("evento").getJSONObject(0).getString("data"));
-                rastreiosModel.setHour(objetos.getJSONObject(i).getJSONArray("evento").getJSONObject(0).getString("hora"));
-                rastreiosModel.setCity(objetos.getJSONObject(i).getJSONArray("evento").getJSONObject(0).getJSONObject("unidade").getString("cidade"));
-                rastreiosModel.setUf(objetos.getJSONObject(i).getJSONArray("evento").getJSONObject(0).getJSONObject("unidade").getString("uf"));
-            } catch (JSONException e) {
-                rastreiosModel.setTrackCode(objetos.getJSONObject(i).getString("numero"));
-                rastreiosModel.setDescription(objetos.getJSONObject(i).getString("categoria"));
-            }
-            rastreioList.add(rastreiosModel);
-
-
-        }
+//        for (int i = 0; i < objetos.length(); i++) {
+//            RastreioEntity rastreiosModel = new RastreioEntity();
+//            rastreiosModel.setTrackCode(objetos.getJSONObject(i).getString("numero"));
+//            try {
+//                rastreiosModel.setDescription(objetos.getJSONObject(i).getJSONArray("evento").getJSONObject(0).getString("descricao"));
+//                rastreiosModel.setDate(objetos.getJSONObject(i).getJSONArray("evento").getJSONObject(0).getString("data"));
+//                rastreiosModel.setHour(objetos.getJSONObject(i).getJSONArray("evento").getJSONObject(0).getString("hora"));
+//                rastreiosModel.setCity(objetos.getJSONObject(i).getJSONArray("evento").getJSONObject(0).getJSONObject("unidade").getString("cidade"));
+//                rastreiosModel.setUf(objetos.getJSONObject(i).getJSONArray("evento").getJSONObject(0).getJSONObject("unidade").getString("uf"));
+//            } catch (JSONException e) {
+//                rastreiosModel.setTrackCode(objetos.getJSONObject(i).getString("numero"));
+//                rastreiosModel.setDescription(objetos.getJSONObject(i).getString("categoria"));
+//            }
+//            rastreioList.add(rastreiosModel);
+//
+//
+//        }
 
 
         System.out.println();
