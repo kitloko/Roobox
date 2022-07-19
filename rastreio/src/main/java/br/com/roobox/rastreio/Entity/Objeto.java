@@ -44,7 +44,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 public class Objeto {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "objeto_id")
     private long id;
 
