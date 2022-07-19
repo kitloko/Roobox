@@ -1,6 +1,5 @@
 package br.com.roobox.rastreio.Service;
 
-import br.com.roobox.rastreio.Entity.RastreioEntity;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -10,10 +9,7 @@ import reactor.core.publisher.Mono;
 
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Rastreio {
@@ -91,7 +87,7 @@ public class Rastreio {
 //
 //    }
 
-    public RastreioEntity retornaRastreioProxyapp(String rastreio) throws ParseException {
+    public Rastreio retornaRastreioProxyapp(String rastreio) throws ParseException {
 
         Mono<String> response = WebClient
                 .builder()
@@ -121,7 +117,7 @@ public class Rastreio {
 //            rastreioModel.setEvento("Sem informação de rastreio");
 //        }
 //        rastreioModel.setTimeExec(new Utils().HoraFormatada(LocalDateTime.now()));
-        return new RastreioEntity();
+        return new Rastreio();
     }
 
     public void rastrioEmMassa(String rastreios) throws JSONException, SQLException {
@@ -151,7 +147,7 @@ public class Rastreio {
 
         JSONArray objetos = new JSONArray(jsonObject.getJSONArray("objeto").toString());
 
-        List<RastreioEntity> rastreioList = new ArrayList<>();
+        List<Rastreio> rastreioList = new ArrayList<>();
 //        for (int i = 0; i < objetos.length(); i++) {
 //            RastreioEntity rastreiosModel = new RastreioEntity();
 //            rastreiosModel.setTrackCode(objetos.getJSONObject(i).getString("numero"));
