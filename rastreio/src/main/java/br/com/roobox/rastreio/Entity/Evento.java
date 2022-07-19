@@ -39,7 +39,7 @@ import reactor.util.annotation.Nullable;
 public class Evento {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "evento_id")
     private long id;
 
